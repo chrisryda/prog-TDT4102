@@ -48,8 +48,8 @@ void triangleNumbersBelow(int n) {
 }
 
 bool isPrime(int n) {
-    for (int i = 2; i < n; ++i) {
-        if (n % i == 0) {
+    for (int j = 2; j < n; ++j) {
+        if (n % j == 0) {
             return false;
         }
     }
@@ -57,17 +57,17 @@ bool isPrime(int n) {
 }
 
 void naivePrimeNumberSearch(int n) {
-    for (int i = 2; i < n; ++i) {
-        if (isPrime(i)) {
-            cout << i << " is a prime" << endl;
+    for (int number = 2; number < n; ++number) {
+        if (isPrime(number)) {
+            cout << number << " is a prime" << endl;
         }
     }
 }
 
 int findGreatestDivisor(int n) {
-    for (int i = n-1; i > 0; --i) {
-        if (n % i == 0) {
-            return i;
+    for (int divisor = n-1; divisor > 0; --divisor) {
+        if (n % divisor == 0) {
+            return divisor;
         }
     }
 }
