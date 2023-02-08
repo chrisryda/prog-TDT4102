@@ -24,7 +24,6 @@ void testCallByReference() {
     cout << "v0: " << v0
     << " increment: " << increment
     << " iterations: " << iterations;
-    
     incrementByValueNumTimesRef(v0, increment, iterations);
     cout << " result: " << v0 << endl;
 }
@@ -44,8 +43,9 @@ void testPrintStudent() {
 
 void testIsInProgram() {
     Student student {"Thomas Aquinas", "Philosophy", 48};
-    cout << isInProgram(student, "philosophy") << endl;
-    cout << isInProgram(student, "elsys") << endl;
+    printStudent(student);
+    cout << "Is student in 'philosophy': " << isInProgram(student, "philosophy") << endl;
+    cout << "Is student in 'elsys': " << isInProgram(student, "elsys") << endl;
 }
 
 void testString() {
