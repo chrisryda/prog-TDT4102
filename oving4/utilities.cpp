@@ -61,7 +61,6 @@ string readInputToString(int length, char lower, char upper) {
         cin >> input;
         if ((res + input).length() > (size_t) length) {
             cout << "Sorry, input was too long" << endl;
-            input = "";
             continue;
         }
         for (size_t i = 0; i < input.length(); i++) {
