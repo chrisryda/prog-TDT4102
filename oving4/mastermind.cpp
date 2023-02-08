@@ -5,12 +5,12 @@
 
 using namespace std;
 
-// Vi bruker constexpr og ikke const fordi ... 
-void playMastermind(int n) {
+void playMastermind(int n, bool hide_code) {
     constexpr int size = 4;
     constexpr int letters = 6;
     string code = randomizeString(size, 'A', 'A'+(letters-1));
-    cout << "CODE IS: " << code << endl;
+    if (!hide_code)
+        cout << "CODE IS: " << code << endl;
     
     int count_char_and_pos = 0;
     int count_char = 0;
@@ -19,6 +19,7 @@ void playMastermind(int n) {
         guess = readInputToString(size, 'A', 'A'+(letters-1));
         count_char_and_pos = checkCharactersAndPosition(code, guess);
         count_char = checkCharacters(code, guess);
+        
         cout << "\nNumber of correct characters: " << count_char << endl;
         cout << "Number of correct characters in correct position: " << count_char_and_pos << "\n" << endl;
         if (count_char_and_pos == size) {
