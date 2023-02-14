@@ -64,8 +64,8 @@ string readInputToString(int length, char lower, char upper) {
             continue;
         }
         for (size_t i = 0; i < input.length(); i++) {
-            input[i] = tolower(input[i]);
-            if (!isalpha(input[i]) || input[i] < tolower(lower) || input[i] > tolower(upper)) {
+            input[i] = toupper(input[i]);
+            if (!isalpha(input[i]) || input[i] < toupper(lower) || input[i] > toupper(upper)) {
                 cout << "Sorry, input must be between " << lower << " and " << upper << endl;
                 input = "";
                 break;

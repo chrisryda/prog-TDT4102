@@ -13,7 +13,7 @@ constexpr int padY = winH / (2*8+1);      // velg x skalering
 constexpr int padX = winW / (2*5+1);      // velg y skalering
 constexpr int radCircle = padX / 8; // velg sirkel radius
 
-constexpr int btnW = padX+100;          //velg knapp bredde basert på padX
+constexpr int btnW = padX+100;       //velg knapp bredde basert på padX
 constexpr int btnH = padY;          //velg knapp høyde basert på padY
 constexpr Point upperLeftCornerBtn = Point{winW - padX - btnW, padY};
 
@@ -45,9 +45,7 @@ public:
     void setCodeHidden(bool hidden);
 
     std::string getInput(unsigned int n, char lower, char upper);
-
     
-
 private:
     std::string wait_for_guess();
     void newGuess() { button_pressed = true; }
@@ -61,4 +59,5 @@ private:
 
 void addGuess(MastermindWindow &mwin, const std::string code, const std::string guess);
 void addFeedback(MastermindWindow &mwin, const std::vector<int> feedback);
+std::vector<int> getFeedback(std::string code, std::string guess);
 void playMastermindVisual(int n, bool hide_code);

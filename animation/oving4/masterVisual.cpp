@@ -26,13 +26,13 @@ void playMastermindVisual(int n, bool hide_code) {
 		vector<int> feedback = getFeedback(code, guess);
 		addFeedback(mwin, feedback);
 		
-		cout << "\nNumber of correct characters: " << count_char << endl;
+		cout << "\nYour guess: " << guess << endl;
+		cout << "Number of correct characters: " << count_char << endl;
 		cout << "Number of correct characters in correct position: " << count_char_and_pos << "\n" << endl;
 		if (count_char_and_pos == size) {
 			cout << "*****Congratulatons, you have won!*****" << endl;
 			return;
 		}
-		
     }
     cout << "Sorry, but you are out of tries - better luck next time!" << endl;
 }
@@ -85,6 +85,7 @@ string MastermindWindow::wait_for_guess()
 		for(int guessIndex = 0; guessIndex < static_cast<int>(guesses.size()); guessIndex++) {
 			{
                 for (int i = 0; i < guesses[guessIndex].guess.size(); i++) {
+					// Remove comments to draw code
 					// int code_letter = guesses[guessIndex].code[i];
 					// draw_rectangle(Point{100*i, 100}, padX, padY, colorConverter.at(code_letter-64));
 					
@@ -161,4 +162,25 @@ string MastermindWindow::getInput(unsigned int n, char lower, char upper)
 
 void MastermindWindow::setCodeHidden(bool hidden) {
 	code_hidden = hidden;
+}
+
+vector<int> getFeedback(string code, string guess) {
+    vector<int> feedback(code.size());
+    vector<int> char_vec(code.size());
+    vector<int> char_and_pos_vec(code.size());
+
+    for (size_t i = 0; i < code.size(); i++) {
+        if (tolower(code[i]) == tolower(guess[i])) {
+            char_and_pos_vec[i] = 1;
+        }
+    }
+    for (size_t i = 0; i < code.size(); i++) {
+        if (code.find(guess[i]) != string::npos) {
+            char_vec[i] = 1;
+        }
+    }
+    for (size_t i = 0; i < feedback.size(); i++) {
+        feedback[i] = char_vec[i] + char_and_pos_vec[i];
+    }
+    return feedback;
 }
