@@ -1,12 +1,12 @@
-#include <iostream>
 #include "Card.h"
 #include "CardDeck.h"
+#include "Blackjack.h"
 
 using namespace std;
 
 int main() {
-    CardDeck cd;
-    cd.shuffle();
-    cd.print();
+    Blackjack b;
+    b.playGame();
+    
     return 0;
 }
