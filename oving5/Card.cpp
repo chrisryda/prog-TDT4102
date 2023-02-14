@@ -1,6 +1,5 @@
 #include "Card.h"
 #include <string>
-#include <iostream>
 #include <map>
 
 using namespace std;
@@ -39,7 +38,25 @@ string rankToString(Rank rank) {
         {Rank::queen, "Queen"},
         {Rank::king, "King"},
         {Rank::ace, "Ace"},
-
     }; 
+    return m.at(rank);
+}
+
+int rankToInt(Rank rank) {
+    map<Rank, int> m{
+        {Rank::two, 2},
+        {Rank::three, 3},
+        {Rank::four, 4},
+        {Rank::five, 5},
+        {Rank::six, 6},
+        {Rank::seven, 7},
+        {Rank::eight, 8},
+        {Rank::nine, 9},
+        {Rank::ten, 10},
+        {Rank::jack, 11},
+        {Rank::queen, 12},
+        {Rank::king, 13},
+        {Rank::ace, 14},
+    };
     return m.at(rank);
 }

@@ -6,6 +6,7 @@ enum class Rank{two = 2, three, four, five, six, seven, eight, nine, ten, jack, 
 
 std::string suitToString(Suit suit);
 std::string rankToString(Rank rank);
+int rankToInt(Rank rank);
 
 class Card {
 private:
