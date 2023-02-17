@@ -24,18 +24,18 @@ string CourseCatalog::getCourse(std::string code) {
     return code_name_map.at(code);
 }
 
+// TODO: Format printing
 ostream &operator<<(ostream &os, const CourseCatalog &c) {
     os << "Subject code" << setw(20) << "Name" << endl;
     for(const auto &m : c.code_name_map){
         os << "  " << m.first << "     " << m.second << endl;
-        // os << m.first << setw(20) << m.second << endl;
     }
     return os;
 }
 
 void CourseCatalog::saveToFile() {
-    fs::path fileName{"../txt-files/courseCatalog.txt"};
-    std::ofstream os{fileName};
+    fs::path file_name{"../txt-files/courseCatalog.txt"};
+    std::ofstream os{file_name};
     for(const auto &m : code_name_map){
         os << m.first << ";" << m.second << endl;
     }

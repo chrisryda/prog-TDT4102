@@ -13,28 +13,27 @@ namespace fs = std::experimental::filesystem;
 void saveWordsToFile(fs::path fileName) {
     cout << "Please write a word that you wish to save to file and press enter." << endl;
     cout << "When finished, type 'quit'\n" << endl;
+
     string word;
     std::ofstream output_stream{fileName};
     while (true) {
         cout << "Enter word: ";
         cin >> word;
-        if (word == "quit") {
-            break;
-        }
+        if (word == "quit") {break;}
         output_stream << word << endl;
     }
 }
 
 void saveFileToNewFile(std::ifstream input_file) {
-    string line;
     if (!input_file.good()) {
         cout << "Invalid filname and/or path." << endl;
         return;
     }
-    fs::path fileName{"../txt-files/copiedFile.txt"};
-    std::ofstream output_stream{fileName};
+    fs::path file_name{"../txt-files/copiedFile.txt"};
+    std::ofstream output_stream{file_name};
 
     int i = 1;
+    string line;
     while (std::getline(input_file, line)) {
         output_stream << i << ": " << line << endl;
         i++;
