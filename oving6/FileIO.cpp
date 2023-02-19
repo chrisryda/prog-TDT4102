@@ -16,11 +16,16 @@ void saveWordsToFile(fs::path fileName) {
 
     string word;
     std::ofstream output_stream{fileName};
-    while (true) {
-        cout << "Enter word: ";
-        cin >> word;
+    cout << "Enter word: ";
+    while (getline(cin, word)) {
+        if (word.find(' ') != string::npos) {
+            cout << "Only one word at a time, please\n" << endl;
+            cout << "Enter word: ";
+            continue;
+        }
         if (word == "quit") {break;}
         output_stream << word << endl;
+        cout << "Enter word: ";
     }
 }
 
