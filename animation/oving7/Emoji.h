@@ -9,10 +9,9 @@ public:
 };
 
 class Face : public Emoji {
-private:
+public:
     Point c;
     int r;
-public:
     Face (Point centre, int radius);
     void draw(AnimationWindow&) override;
 };
@@ -28,3 +27,23 @@ public:
     SmilingFace (Point centre, int radius);
     void draw(AnimationWindow&) override;
 };
+
+class SadFace : public EmptyFace {
+public:
+    SadFace (Point centre, int radius);
+    void draw(AnimationWindow&) override;
+};
+
+class AngryFace : public EmptyFace  {
+public:
+    AngryFace (Point centre, int radius);
+    void draw(AnimationWindow&) override;
+};
+
+class SurprisedFace : public EmptyFace {
+public:
+    SurprisedFace (Point centre, int radius);
+    void draw(AnimationWindow&) override;
+};
+
+void testEmoji(AnimationWindow &win);
