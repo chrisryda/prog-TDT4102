@@ -18,7 +18,7 @@ int main() {
     
     CourseCatalog cc;
     cc.readFromFile(std::ifstream{"../txt-files/courseCatalog.txt"});
-    cc.addCourse("LIFE101", "Happiness");
+    cc.addCourse("LIFE102", "Meaning");
     cc.saveToFile();
 
     vector<Temps> ts = readTemps("../txt-files/temperatures.txt");
