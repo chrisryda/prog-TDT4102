@@ -20,6 +20,7 @@ namespace TDT4102 {
         TDT4102::Point position;
         unsigned int width = 0;
         unsigned int height = 0;
+        bool isVisible = true;
         // Each window in Nuklear needs a unique name, so we generate a unique one for each widget
         std::string uniqueWidgetName;
 
@@ -27,6 +28,7 @@ namespace TDT4102 {
         void fire();
         virtual void update(nk_context* context) = 0;
         explicit Widget(TDT4102::Point position, unsigned int width, unsigned int height);
+        void setVisible(bool isVisible);
     public:
         void setCallback(std::function<void(void)> callback);
         virtual ~Widget() {}
