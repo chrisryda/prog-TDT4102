@@ -1,4 +1,5 @@
 #include "DynamicMemory.h"
+#include "Dummy.h"
 #include "Matrix.h"
 #include <iostream>
 
@@ -10,5 +11,6 @@ int main() {
     Matrix m1{4};
 
     cout << m << endl;
-    cout << m1 << endl;   
+    cout << m1 << endl;
+    dummyTest(); 
 }

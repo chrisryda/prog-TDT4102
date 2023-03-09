@@ -5,4 +5,4 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y -Wall -Wextra")
 
 link_libraries(stdc++fs)
 
-add_executable(main main.cpp DynamicMemory.cpp DynamicMemory.h Matrix.cpp Matrix.h)
+add_executable(main main.cpp DynamicMemory.cpp DynamicMemory.h Matrix.cpp Matrix.h Dummy.h Dummy.cpp) 
