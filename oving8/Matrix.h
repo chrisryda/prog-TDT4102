@@ -19,4 +19,7 @@ public:
     double* operator[](int n);
     friend std::ostream& operator<<(std::ostream &os, const Matrix &m);
     Matrix& operator=(Matrix rhs);
+    Matrix& operator+=(Matrix rhs);
+    Matrix operator+(Matrix rhs);
 };
+

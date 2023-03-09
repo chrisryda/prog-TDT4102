@@ -84,3 +84,19 @@ Matrix &Matrix::operator=(Matrix rhs) {
     std::swap(matrix, rhs.matrix);
     return *this;
 }
+
+Matrix &Matrix::operator+=(Matrix rhs) {
+    assert(n_rows == rhs.n_rows && n_columns == rhs.n_columns);
+    for(int i = 0; i < n_rows; ++i) {
+        for(int j = 0; j < n_columns; ++j) {
+            this->matrix[i][j] += rhs.matrix[i][j];
+        }
+    }
+    return *this;
+}
+
+Matrix Matrix::operator+(Matrix rhs) {
+    Matrix m = *this;
+    m += rhs;
+    return m;
+}
