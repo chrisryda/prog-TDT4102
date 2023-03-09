@@ -9,6 +9,7 @@ private:
 public:
     Matrix (int rows, int columns);
     explicit Matrix(int rows);
+    Matrix (const Matrix &rhs);
     ~Matrix();
     int getRows() const;
     int getColumns() const;
@@ -17,5 +18,5 @@ public:
     void set(int row, int col, double value);
     double* operator[](int n);
     friend std::ostream& operator<<(std::ostream &os, const Matrix &m);
+    Matrix& operator=(Matrix rhs);
 };
-

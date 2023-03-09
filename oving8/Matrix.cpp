@@ -1,5 +1,6 @@
 #include "Matrix.h"
 #include <iostream>
+#include <utility>
 #include <iomanip>
 #include <cassert>
 
@@ -11,23 +12,37 @@ Matrix::Matrix(int rows, int columns) {
     n_columns = columns;
     
     matrix = new double*[n_rows]; // each element is a pointer to an array.
-    for(size_t i = 0; i < n_rows; ++i) {
-        matrix[i] = new double[n_columns]; // build rows
-    }
-    for(size_t i = 0; i < n_rows; ++i) {
-        for(size_t j = 0; j < n_columns; ++j) {
+    for(int i = 0; i < n_rows; ++i) {
+        matrix[i] = new double[n_columns];
+        for(int j = 0; j < n_columns; ++j) {
             matrix[i][j] = 0;
         }
     }
 }
 
-Matrix::Matrix(int rows) : Matrix(rows, rows) { 
-    for (size_t i = 0; i < rows; ++i) {
+Matrix::Matrix(int rows) : Matrix(rows, rows) {
+    for (int i = 0; i < rows; ++i) {
         matrix[i][i] = 1;
     }
 }
 
+Matrix::Matrix(const Matrix &rhs) : matrix{ nullptr } {
+    this->n_rows = rhs.n_rows;
+    this->n_columns = rhs.n_columns;
+    this->matrix= new double*[rhs.n_rows] {};
+
+    for(int i = 0; i < rhs.n_rows; ++i) {
+        this->matrix[i] = new double[rhs.n_columns];
+        for(int j = 0; j < rhs.n_columns; ++j) {
+            this->matrix[i][j] = rhs.matrix[i][j];
+        }
+    }
+}
+
 Matrix::~Matrix() {
+    for(int i = 0; i < n_rows; ++i) {
+        delete matrix[i];
+    }
     delete[] matrix;
     matrix = nullptr;
 }
@@ -53,12 +68,19 @@ double* Matrix::operator[](int n) {
 }
 
 ostream& operator<<(ostream &os, const Matrix &m) {
-    for(size_t i = 0; i < m.n_rows; ++i) {
+    for(int i = 0; i < m.n_rows; ++i) {
         os <<  "[ ";
-        for(size_t j = 0; j < m.n_columns; ++j) {
+        for(int j = 0; j < m.n_columns; ++j) {
             os << setprecision(4) << m.matrix[i][j] << " ";
         }
         os << " ]" << endl;
     }
     return os;
+}
+
+Matrix &Matrix::operator=(Matrix rhs) {
+    std::swap(n_rows, rhs.n_rows);
+    std::swap(n_columns, rhs.n_columns);    
+    std::swap(matrix, rhs.matrix);
+    return *this;
 }
