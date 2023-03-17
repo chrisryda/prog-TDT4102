@@ -21,5 +21,9 @@ public:
     Matrix& operator=(Matrix rhs);
     Matrix& operator+=(Matrix rhs);
     Matrix operator+(Matrix rhs);
+    Matrix& operator-=(Matrix rhs);
+    Matrix operator-();
+    Matrix operator-(Matrix rhs);
+    Matrix& operator*=(Matrix rhs);
+    Matrix operator*(Matrix rhs);
 };
-

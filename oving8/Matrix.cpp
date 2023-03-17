@@ -69,11 +69,11 @@ double* Matrix::operator[](int n) {
 
 ostream& operator<<(ostream &os, const Matrix &m) {
     for(int i = 0; i < m.n_rows; ++i) {
-        os <<  "[ ";
+        os <<  "[";
         for(int j = 0; j < m.n_columns; ++j) {
             os << setprecision(4) << m.matrix[i][j] << " ";
         }
-        os << " ]" << endl;
+        os << "]" << endl;
     }
     return os;
 }
@@ -98,5 +98,51 @@ Matrix &Matrix::operator+=(Matrix rhs) {
 Matrix Matrix::operator+(Matrix rhs) {
     Matrix m = *this;
     m += rhs;
+    return m;
+}
+
+Matrix &Matrix::operator-=(Matrix rhs) {
+    assert(n_rows == rhs.n_rows && n_columns == rhs.n_columns);
+    for(int i = 0; i < n_rows; ++i) {
+        for(int j = 0; j < n_columns; ++j) {
+            this->matrix[i][j] -= rhs.matrix[i][j];
+        }
+    }
+    return *this;
+}
+
+Matrix Matrix::operator-() {
+    for(int i = 0; i < n_rows; ++i) {
+        for(int j = 0; j < n_columns; ++j) {
+            this->matrix[i][j] = -this->matrix[i][j];
+        }
+    }
+    return *this;
+}
+
+Matrix Matrix::operator-(Matrix rhs) {
+    Matrix m = *this;
+    m -= rhs;
+    return m;
+}
+
+Matrix &Matrix::operator*=(Matrix rhs) {
+    assert(n_columns == rhs.n_rows);
+    Matrix res{n_rows, rhs.n_columns};
+    for(int i = 0; i < n_rows; ++i) {
+        for(int j = 0; j < rhs.n_columns; ++j) {
+            for(int k = 0; k < n_columns; ++k) {
+                res.matrix[i][j] += this->matrix[i][k] * rhs.matrix[k][j];
+            }
+        }
+    }
+    
+    *this = res;
+    return *this;
+}
+
+Matrix Matrix::operator*(Matrix rhs) {
+    Matrix m = *this;
+    m *= rhs;
     return m;
 }
