@@ -1,5 +1,6 @@
 #include "Car.h"
 #include "Person.h"
+#include "Meeting.h"
 #include <iostream>
 #include <memory>
 

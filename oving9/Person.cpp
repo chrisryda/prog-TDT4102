@@ -31,7 +31,8 @@ ostream& operator<<(ostream &os, const Person &p) {
     os << "\nPerson" << endl;
     os << "Name: " << p.name << endl;
     os << "Email: " << p.email << endl;
-    os << "Has available seats: " << p.hasAvailableSeats() << endl;
+    string hasAvailableSeats = p.hasAvailableSeats() ? "Yes" : "No";
+    os << "Has available seats: " << hasAvailableSeats << endl;
 
     return os;
 }
