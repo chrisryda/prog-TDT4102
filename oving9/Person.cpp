@@ -6,7 +6,6 @@
 
 using namespace std;
 
-// Person::Person(string name, string email, Car* car = nullptr) : name{name}, email{email}, car{car} {}
 Person::Person(string name, string email, unique_ptr<Car> c) : name{name}, email{email} {
     car = move(c);
 }
