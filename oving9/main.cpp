@@ -16,5 +16,13 @@ int main() {
     Person p3{"T-bone", "t@b.com", make_unique<Car>(0)};
     cout << p3 << endl;
 
+    shared_ptr<Person> p4 = make_shared<Person>("Ull", "wo@ol.com", make_unique<Car>(6));
+    Meeting m{1, 14, 16, Campus::Trondheim, "TDT4102", p4};
+    cout << m << endl;
+
+    shared_ptr<Person> p5 = make_shared<Person>("G-wagon", "g@w.com", make_unique<Car>(1));
+    m.addParticipant(p5);
+    cout << m << endl;
+
     return 0;
 }
