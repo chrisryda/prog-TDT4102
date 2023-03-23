@@ -27,7 +27,7 @@ public:
     std::shared_ptr<Person> getLeader() const;
     std::vector<std::string> getParticipantList() const;
     void addParticipant(std::shared_ptr<Person> participant); 
-    std::vector<std::shared_ptr<Person>> findPotentialCoDriving(Meeting m);
+    std::vector<std::shared_ptr<Person>> findPotentialCoDriving(Meeting m) const;
 };
 
 std::ostream& operator<<(std::ostream &os, const Meeting &m);

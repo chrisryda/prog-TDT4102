@@ -62,7 +62,7 @@ void Meeting::addParticipant(shared_ptr<Person> participant) {
     participants.emplace_back(participant);
 }
 
-vector<shared_ptr<Person>> Meeting::findPotentialCoDriving(Meeting m) {
+vector<shared_ptr<Person>> Meeting::findPotentialCoDriving(Meeting m) const {
     vector<shared_ptr<Person>> potentialCoDrivers;
     for (auto &p : m.participants) {
         if (
@@ -81,7 +81,7 @@ vector<shared_ptr<Person>> Meeting::findPotentialCoDriving(Meeting m) {
 }
 
 ostream& operator<<(std::ostream &os, const Meeting &m) {
-    os << "\nMeeting:" << endl;
+    os << "\nMeeting" << endl;
     os << "Subject: " << m.getSubject() << endl;
     os << "Location: " << m.getLocation() << endl;
     os << "Start time: " << m.getStartTime() << endl;
