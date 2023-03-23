@@ -31,6 +31,7 @@ exe = executable(
   src,
 'Car.cpp',
 'Meeting.cpp',
+'MeetingWindow.cpp',
 'Person.cpp',
 'main.cpp',
   dependencies : [animationwindow_dep, sdl2_dep],

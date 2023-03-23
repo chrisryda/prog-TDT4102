@@ -28,8 +28,8 @@ bool Person::hasAvailableSeats() const {
 
 ostream& operator<<(ostream &os, const Person &p) {
     os << "\nPerson" << endl;
-    os << "Name: " << p.name << endl;
-    os << "Email: " << p.email << endl;
+    os << "Name: " << p.getName() << endl;
+    os << "Email: " << p.getEmail() << endl;
     string hasAvailableSeats = p.hasAvailableSeats() ? "Yes" : "No";
     os << "Has available seats: " << hasAvailableSeats << endl;
 
