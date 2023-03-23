@@ -21,6 +21,7 @@ int main() {
     cout << m << endl;
 
     shared_ptr<Person> p5 = make_shared<Person>("G-wagon", "g@w.com", make_unique<Car>(1));
+    cout << *p5.get() << endl;
     m.addParticipant(p5);
     cout << m << endl;
 
