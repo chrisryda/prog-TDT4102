@@ -94,3 +94,27 @@ ostream& operator<<(std::ostream &os, const Meeting &m) {
 
     return os;
 }
+
+string Meeting::toString() {
+    string res = "";
+    res += "Meeting\n";
+    res += "Subject: " + getSubject() + "\n";
+    string location;
+    if (getLocation() == Campus::Trondheim) {
+        location = "Trondheim";
+    } else if (getLocation() == Campus::Gjovik) {
+        location = "Gjovik";
+    } else {
+        location = "Alesund";
+    }
+    res += "Location: " + location + "\n";
+    res += "Start time: " + to_string(getStartTime()) + "\n";
+    res += "End time: " + to_string(getEndTime()) + "\n";
+    res += "Meeting leader: " + getLeader().get()->getName() + "\n";
+    res += "Participants:\n";
+    for (string s : getParticipantList()) {
+        res += s + "\n";
+    }
+
+    return res;
+}

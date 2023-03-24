@@ -28,6 +28,7 @@ public:
     std::vector<std::string> getParticipantList() const;
     void addParticipant(std::shared_ptr<Person> participant); 
     std::vector<std::shared_ptr<Person>> findPotentialCoDriving(Meeting m) const;
+    std::string toString(); 
 };
 
 std::ostream& operator<<(std::ostream &os, const Meeting &m);

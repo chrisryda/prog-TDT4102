@@ -7,10 +7,7 @@
 using namespace std;
 
 int main() {
-
-    MeetingWindow mw{50, 50, 600, 500, "Test"};
+    MeetingWindow mw{50, 50, 600, 700, "MeetingWindow"};
     mw.wait_for_close();
-    mw.printPeople();
-
     return 0;
 }
