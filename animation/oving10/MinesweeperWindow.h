@@ -16,7 +16,9 @@ private:
 	const int height;		// Hoyde i antall tiles
 	const int mines;		// Antall miner
 	vector<shared_ptr<Tile>> tiles; // Vektor som inneholder alle tiles
-
+	int openedTiles = 0;
+	bool hasWon() { return (openedTiles == (width*height)-mines); };
+	
 	// hoyde og bredde i piksler
 	int Height() const { return height * cellSize; } 
 	int Width() const { return width * cellSize; }

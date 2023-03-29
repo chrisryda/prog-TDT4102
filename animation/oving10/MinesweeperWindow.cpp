@@ -17,7 +17,7 @@ std::vector<int> getUniqueRandomNumbersInRange(int lower, int upper) {
 
 MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mines, const string &title) : 
 	// Initialiser medlemsvariabler, bruker konstruktoren til AnimationWindow-klassen
-	AnimationWindow{x, y, width * cellSize, (height + 1) * cellSize, title},
+	AnimationWindow{x, y, (width * cellSize) + 5, ((height + 1) * cellSize) + 50, title},
 	width{width}, height{height}, mines{mines}
 {
 	// Legg til alle tiles i vinduet
@@ -57,10 +57,10 @@ vector<Point> MinesweeperWindow::adjacentPoints(Point xy) const {
 
 void MinesweeperWindow::openTile(Point xy) {
 	if (at(xy).get()->getState() == Cell::closed) { 
-		vector<Point> adjPoints = adjacentPoints(xy);
 		at(xy).get()->open();
 		if (!at(xy).get()->getIsMine()) {
-			openTile(xy);
+			openedTiles++;
+			vector<Point> adjPoints = adjacentPoints(xy);
 			int mines = countMines(adjPoints);
 			if (mines > 0) {
 				at(xy).get()->setAdjMines(mines);
@@ -70,7 +70,14 @@ void MinesweeperWindow::openTile(Point xy) {
 						openTile(p);
 				}
 			}
+		} else {
+			std::cout << "Loser" << std::endl;
+			this->close();
 		}
+	}
+	if (hasWon()) {
+		std::cout << "Winner" << std::endl;
+		this->close();
 	}
 }
 
