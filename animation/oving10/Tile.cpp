@@ -25,8 +25,8 @@ Tile::Tile(TDT4102::Point pos, int size) : Button({pos.x, pos.y}, 1.5*size, size
 	setButtonColor(TDT4102::Color::silver);
 }
 
-void Tile::setIsMine(bool isMine) {
-	isMine = isMine;
+void Tile::setIsMine(bool m) {
+	isMine = m;
 }
 
 void Tile::open() {
@@ -34,7 +34,7 @@ void Tile::open() {
 		return;
 	}
 	state = Cell::open;
-	set_label_color(TDT4102::Color::white);
+	setButtonColor(TDT4102::Color::white);
 	if (isMine) {
 		set_label("X");
 		set_label_color(TDT4102::Color::red);
@@ -55,5 +55,5 @@ void Tile::flag() {
 void Tile::setAdjMines(int n) {
 	assert(n > 0 && n < 9);
 	set_label(std::to_string(n));
-	set_label_color(minesToColor.at(n));
+	set_label_color(TDT4102::Color::blue); // TODO: minesToColor not working
 }

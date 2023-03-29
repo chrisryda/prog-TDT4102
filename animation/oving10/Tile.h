@@ -16,7 +16,7 @@ public:
 
 	Cell getState() const { return state; };
 	bool getIsMine() const { return isMine; };
-	void setIsMine(bool isMine);
+	void setIsMine(bool m);
 
 	void open();
 	void flag();
