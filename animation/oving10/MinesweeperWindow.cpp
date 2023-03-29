@@ -1,5 +1,19 @@
 #include "MinesweeperWindow.h"
 #include <iostream>
+#include <algorithm>
+#include <chrono>
+#include <random>
+#include <vector>
+#include <cassert>
+
+std::vector<int> getUniqueRandomNumbersInRange(int lower, int upper) {
+	std::vector<int> numbers(upper-lower);
+	std::iota(numbers.begin(), numbers.end(), lower);
+
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(numbers.begin(), numbers.end(), std::default_random_engine(seed));
+    return numbers;
+}
 
 MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mines, const string &title) : 
 	// Initialiser medlemsvariabler, bruker konstruktoren til AnimationWindow-klassen
@@ -14,6 +28,13 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 			auto temp = tiles.back().get();
 			add(*temp); 
 		}
+	}
+	std::vector<int> range = getUniqueRandomNumbersInRange(0, tiles.size());
+	int rand;
+	for (int i = 0; i < mines; ++i) {
+		rand = range.back();
+		range.pop_back();
+		tiles.at(rand).get()->setIsMine(true);
 	}
 }
 
@@ -35,9 +56,28 @@ vector<Point> MinesweeperWindow::adjacentPoints(Point xy) const {
 }
 
 void MinesweeperWindow::openTile(Point xy) {
+	if (at(xy).get()->getState() == Cell::closed) { 
+		vector<Point> adjPoints = adjacentPoints(xy);
+		at(xy).get()->open();
+		if (!at(xy).get()->getIsMine()) {
+			openTile(xy);
+			int mines = countMines(adjPoints);
+			if (mines > 0) {
+				at(xy).get()->setAdjMines(mines);
+			} else {
+				for (Point p : adjPoints) {
+					if (!at(p).get()->getIsMine())
+						openTile(p);
+				}
+			}
+		}
+	}
 }
 
 void MinesweeperWindow::flagTile(Point xy) {
+	if (at(xy).get()->getState() == Cell::closed || at(xy).get()->getState() == Cell::flagged) {
+		at(xy).get()->flag();
+	}
 }
 
 //Kaller openTile ved venstreklikk og flagTile ved hoyreklikk
@@ -55,4 +95,14 @@ void MinesweeperWindow::cb_click() {
 	else if(this->is_right_mouse_button_down()){
 		flagTile(xy);
 	}
+}
+
+int MinesweeperWindow::countMines(std::vector<Point> coords) const {
+	int mines = 0;
+	for (Point p : coords) {
+		if (at(p).get()->getIsMine()) {
+			mines++;
+		}
+	}
+	return mines;
 }
