@@ -1,4 +1,5 @@
 #pragma once
+#include "widgets/TextInput.h"
 #include "AnimationWindow.h"
 #include "Tile.h"
 
@@ -12,11 +13,14 @@ public:
 	static constexpr int cellSize = 30;
 	MinesweeperWindow(int x, int y, int width, int height, int mines, const string& title);
 private:
+	TDT4102::TextInput gameInfo;
+	
 	const int width;		// Bredde i antall tiles
 	const int height;		// Hoyde i antall tiles
 	const int mines;		// Antall miner
 	vector<shared_ptr<Tile>> tiles; // Vektor som inneholder alle tiles
 	int openedTiles = 0;
+	bool hasLost = false;
 	bool hasWon() { return (openedTiles == (width*height)-mines); };
 	
 	// hoyde og bredde i piksler

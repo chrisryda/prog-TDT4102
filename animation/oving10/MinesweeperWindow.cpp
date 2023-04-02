@@ -16,11 +16,12 @@ std::vector<int> getUniqueRandomNumbersInRange(int lower, int upper) {
 }
 
 MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mines, const string &title) : 
-	// Initialiser medlemsvariabler, bruker konstruktoren til AnimationWindow-klassen
 	AnimationWindow{x, y, (width * cellSize) + 5, ((height + 1) * cellSize) + 50, title},
-	width{width}, height{height}, mines{mines}
+	width{width}, height{height}, mines{mines},
+	gameInfo{{5,310}, 150, 70}
 {
-	// Legg til alle tiles i vinduet
+	add(gameInfo);
+
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
 			tiles.emplace_back(new Tile{ Point{j * cellSize, i * cellSize}, cellSize});
@@ -71,13 +72,12 @@ void MinesweeperWindow::openTile(Point xy) {
 				}
 			}
 		} else {
-			std::cout << "Loser" << std::endl;
-			this->close();
+			hasLost = true;
+			gameInfo.setText("Game lost!\nTry again.");
 		}
 	}
 	if (hasWon()) {
-		std::cout << "Winner" << std::endl;
-		this->close();
+		gameInfo.setText("Game won!\nCongratulations!");
 	}
 }
 
@@ -89,7 +89,9 @@ void MinesweeperWindow::flagTile(Point xy) {
 
 //Kaller openTile ved venstreklikk og flagTile ved hoyreklikk
 void MinesweeperWindow::cb_click() {
-	
+	if (hasLost || hasWon()) {
+		return;
+	}
 	Point xy{this->get_mouse_coordinates()};
 	//std::cout << xy.x << " " << xy.y <<": " << xy.x / (cellSize) + (xy.y / cellSize) * width<<"\n";
 
