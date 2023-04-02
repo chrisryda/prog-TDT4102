@@ -20,6 +20,7 @@ private:
 	const int mines;		// Antall miner
 	vector<shared_ptr<Tile>> tiles; // Vektor som inneholder alle tiles
 	int openedTiles = 0;
+	int flaggedTiles = 0;
 	bool hasLost = false;
 	bool hasWon() { return (openedTiles == (width*height)-mines); };
 	
@@ -43,6 +44,10 @@ private:
     //aapne og flagge rute
 	void openTile(Point xy);
 	void flagTile(Point xy);
+
+	//Oppdatere vinduet ved seier og tap
+	void updateWindowOnWin();
+	void updateWindowOnLoss();
 
 	// callback funksjoner til Tile knappene
 	void cb_click();

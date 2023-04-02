@@ -21,6 +21,7 @@ MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mi
 	gameInfo{{5,310}, 150, 70}
 {
 	add(gameInfo);
+	gameInfo.setText("Mines left: " + std::to_string(mines));
 
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
@@ -73,17 +74,51 @@ void MinesweeperWindow::openTile(Point xy) {
 			}
 		} else {
 			hasLost = true;
+			updateWindowOnLoss();
 			gameInfo.setText("Game lost!\nTry again.");
 		}
 	}
 	if (hasWon()) {
+		updateWindowOnWin();
 		gameInfo.setText("Game won!\nCongratulations!");
 	}
 }
 
 void MinesweeperWindow::flagTile(Point xy) {
-	if (at(xy).get()->getState() == Cell::closed || at(xy).get()->getState() == Cell::flagged) {
+	if (at(xy).get()->getState() == Cell::closed) {
 		at(xy).get()->flag();
+		flaggedTiles++;
+		gameInfo.setText("Mines left: " + std::to_string(mines-flaggedTiles));
+	} else if (at(xy).get()->getState() == Cell::flagged) {
+		at(xy).get()->flag();
+		flaggedTiles--;
+		gameInfo.setText("Mines left: " + std::to_string(mines-flaggedTiles));
+	}
+}
+
+int MinesweeperWindow::countMines(std::vector<Point> coords) const {
+	int mines = 0;
+	for (Point p : coords) {
+		if (at(p).get()->getIsMine()) {
+			mines++;
+		}
+	}
+	return mines;
+}
+
+void MinesweeperWindow::updateWindowOnWin() {
+	for (auto t : tiles) {
+		if (t.get()->getIsMine() && t.get()->getState() == Cell::closed) {
+			t.get()->flag();
+		}
+	}
+}
+
+void MinesweeperWindow::updateWindowOnLoss() {
+	for (auto t : tiles) {
+		if (t.get()->getIsMine() && t.get()->getState() == Cell::closed) {
+			t.get()->open();
+		}
 	}
 }
 
@@ -104,14 +139,4 @@ void MinesweeperWindow::cb_click() {
 	else if(this->is_right_mouse_button_down()){
 		flagTile(xy);
 	}
-}
-
-int MinesweeperWindow::countMines(std::vector<Point> coords) const {
-	int mines = 0;
-	for (Point p : coords) {
-		if (at(p).get()->getIsMine()) {
-			mines++;
-		}
-	}
-	return mines;
 }
