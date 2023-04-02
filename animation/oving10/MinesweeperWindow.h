@@ -1,6 +1,7 @@
 #pragma once
 #include "widgets/TextInput.h"
 #include "AnimationWindow.h"
+#include "widgets/Button.h"
 #include "Tile.h"
 
 using namespace std;
@@ -14,7 +15,12 @@ public:
 	MinesweeperWindow(int x, int y, int width, int height, int mines, const string& title);
 private:
 	TDT4102::TextInput gameInfo;
-	
+	TDT4102::Button restartBtn;
+	TDT4102::Button quitBtn;
+
+	void cb_restart();
+	void cb_quit();
+
 	const int width;		// Bredde i antall tiles
 	const int height;		// Hoyde i antall tiles
 	const int mines;		// Antall miner

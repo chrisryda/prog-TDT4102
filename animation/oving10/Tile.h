@@ -19,6 +19,7 @@ public:
 	void setIsMine(bool m);
 
 	void open();
+	void close();
 	void flag();
 	void setAdjMines(int n);
 };

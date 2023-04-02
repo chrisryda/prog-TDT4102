@@ -41,6 +41,15 @@ void Tile::open() {
 	}
 }
 
+void Tile::close() {
+	if (state == Cell::closed) {
+		return;
+	}
+	state = Cell::closed;
+	setButtonColor(TDT4102::Color::silver);
+	set_label(cellToSymbol.at(Cell::closed));
+}
+
 void Tile::flag() {
 	if (state == Cell::flagged) {
 		state = Cell::closed;

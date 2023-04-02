@@ -18,10 +18,16 @@ std::vector<int> getUniqueRandomNumbersInRange(int lower, int upper) {
 MinesweeperWindow::MinesweeperWindow(int x, int y, int width, int height, int mines, const string &title) : 
 	AnimationWindow{x, y, (width * cellSize) + 5, ((height + 1) * cellSize) + 50, title},
 	width{width}, height{height}, mines{mines},
-	gameInfo{{5,310}, 150, 70}
+	gameInfo{{5,310}, 150, 70},
+	restartBtn{{215, 305}, 100, 35, "Restart"},
+	quitBtn{{215, 340}, 100, 35, "Quit"}
 {
 	add(gameInfo);
 	gameInfo.setText("Mines left: " + std::to_string(mines));
+	add(restartBtn);
+	add(quitBtn);
+	quitBtn.setCallback(std::bind(&MinesweeperWindow::cb_quit, this));
+	restartBtn.setCallback(std::bind(&MinesweeperWindow::cb_restart, this));
 
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
@@ -116,7 +122,8 @@ void MinesweeperWindow::updateWindowOnWin() {
 
 void MinesweeperWindow::updateWindowOnLoss() {
 	for (auto t : tiles) {
-		if (t.get()->getIsMine() && t.get()->getState() == Cell::closed) {
+		if (t.get()->getIsMine()) {
+			t.get()->close();
 			t.get()->open();
 		}
 	}
@@ -139,4 +146,27 @@ void MinesweeperWindow::cb_click() {
 	else if(this->is_right_mouse_button_down()){
 		flagTile(xy);
 	}
+}
+
+void MinesweeperWindow::cb_restart() {
+	hasLost = false;
+	openedTiles = 0;
+	flaggedTiles = 0;
+	for (auto t : tiles) {
+		t.get()->close();
+		t.get()->setIsMine(false);
+	}
+
+	std::vector<int> range = getUniqueRandomNumbersInRange(0, tiles.size());
+	int rand;
+	for (int i = 0; i < mines; ++i) {
+		rand = range.back();
+		range.pop_back();
+		tiles.at(rand).get()->setIsMine(true);
+	}
+	gameInfo.setText("Mines left: " + std::to_string(mines));
+}
+
+void MinesweeperWindow::cb_quit() {
+	this->close();
 }
