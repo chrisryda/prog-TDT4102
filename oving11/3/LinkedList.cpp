@@ -38,8 +38,8 @@ LinkedList::Node* LinkedList::LinkedList::find(const std::string& value) {
 
 LinkedList::Node* LinkedList::LinkedList::remove(Node* pos) {
     if (pos == head.get()) {
-        std::cerr << "Terminating: Cannot remove head" << std::endl;
-        throw new std::invalid_argument("Cannot remove head");
+        std::cerr << "Terminating: Cannot remove head/tail" << std::endl;
+        throw new std::invalid_argument("Cannot remove head/tail");
     } else {
         Node* ret = pos->getNext(); 
         pos->next->prev = pos->prev;
@@ -62,12 +62,12 @@ void testLinkedList() {
     LinkedList::LinkedList list;
     LinkedList::Node* first = list.insert(list.end(), "first");
     LinkedList::Node* second = list.insert(first, "second");
-    LinkedList::Node* third = list.insert(second, "third");
+    list.insert(second, "third");
     
     LinkedList::Node* secondFound = list.find("second");
     LinkedList::Node* found = list.insert(secondFound, "found");
 
     std::cout << list << std::endl;
-    list.remove(list.begin());
+    list.remove(found);
     std::cout << list << std::endl;
 }
