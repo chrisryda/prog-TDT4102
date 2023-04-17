@@ -1,6 +1,8 @@
 #include "TetrisWindow.h"
 #include <iostream>
 
+TetrisWindow::TetrisWindow() {}
+
 void TetrisWindow::run() {
     unsigned int framesSinceLastTetronimoMove = 0;
     const unsigned int framesPerTetronimoMove = 20;

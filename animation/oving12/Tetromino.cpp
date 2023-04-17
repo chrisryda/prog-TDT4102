@@ -1,18 +1,84 @@
 #include "Tetromino.h"
 #include <map>
-#include <iostream>
+#include <cassert>
 
 const std::map<TetrominoType, std::vector<std::vector<int>>> initialMatrixMap {
+    {
+        TetrominoType::T, {
+            {0, 0, 0},
+            {1, 1, 1},
+            {0, 1, 0}
+        }
+    },
     {
         TetrominoType::J, {
             {0, 0, 0},
             {1, 1, 1},
             {0, 0, 1}
         }
+    },
+    {
+        TetrominoType::I, {
+            {1, 0, 0, 0},
+            {1, 0, 0, 0},
+            {1, 0, 0, 0},
+            {1, 0, 0, 0}
+        }
+    },
+    {
+        TetrominoType::Z, {
+            {0, 0, 0},
+            {1, 1, 0},
+            {0, 1, 1}
+        }
+    },
+    {
+        TetrominoType::L, {
+            {1, 1, 1},
+            {1, 0, 0},
+            {0, 0, 0}
+        }
+    },
+    {
+        TetrominoType::S, {
+            {0, 0, 0},
+            {0, 1, 1},
+            {1, 1, 0}
+        }
+    },
+    {
+        TetrominoType::O, {
+            {1, 1},
+            {1, 1}
+        }
     }
 };
 
-Tetromino::Tetromino() : topLeftCorner{TDT4102::Point{0,0}}, matrixSize{0} {};
+const std::map<TetrominoType, TDT4102::Color> colorMap {
+    {
+        TetrominoType::T, TDT4102::Color::purple
+    },
+    {
+        TetrominoType::J, TDT4102::Color::blue
+    },
+    {
+        TetrominoType::I, TDT4102::Color::aqua
+    },
+    {
+        TetrominoType::Z, TDT4102::Color::red
+    },
+    {
+        TetrominoType::L, TDT4102::Color::orange
+    },
+    {
+        TetrominoType::S, TDT4102::Color::lime
+    },
+    {
+        TetrominoType::O, TDT4102::Color::yellow
+    }
+};
+
+Tetromino::Tetromino() : matrixSize{0}, topLeftCorner{TDT4102::Point{0,0}}, color{TDT4102::Color::grey} {};
 
 Tetromino::Tetromino(TDT4102::Point startingPoint, TetrominoType tetType) : topLeftCorner{startingPoint} {
     std::vector<std::vector<int>> tetrominoVec = initialMatrixMap.at(tetType);
@@ -26,7 +92,27 @@ Tetromino::Tetromino(TDT4102::Point startingPoint, TetrominoType tetType) : topL
             }
         }
     }
-    // std::cout << matrixSize << std::endl;
+    color = colorMap.at(tetType);
+}
+
+int Tetromino::getMatrixSize() {
+    return matrixSize;
+}
+
+TDT4102::Point Tetromino::getPosition() {
+    return topLeftCorner;
+}
+
+bool Tetromino::blockExist(int row, int col) {
+    assert(row >= 0 && col >= 0);
+    assert(row < matrixSize && col < matrixSize);
+    return (blockMatrix[row][col] != TetrominoType::NONE);
+}
+
+TetrominoType Tetromino::getBlock(int row, int col) {
+    assert(row >= 0 && col >= 0);
+    assert(row < matrixSize && col < matrixSize);
+    return blockMatrix[row][col];
 }
 
 void Tetromino::rotateCounterClockwise() {
@@ -60,4 +146,16 @@ void Tetromino::rotateClockwise() {
             std::swap(blockMatrix[row][column], blockMatrix[row][matrixSize-column-1]);
         }
     }
+}
+
+void Tetromino::moveLeft() {
+    topLeftCorner.x -= blockSize;
+}
+
+void Tetromino::moveRight() {
+    topLeftCorner.x += blockSize;
+}
+
+void Tetromino::moveDown() {
+    topLeftCorner.y += blockSize;
 }
