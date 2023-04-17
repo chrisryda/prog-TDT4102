@@ -6,8 +6,8 @@ enum class TetrominoType{J, L, T, S, Z, O, I, NONE};
 
 class Tetromino {
 public:
-    static constexpr int blockSize {30};
-
+    static constexpr int blockSize{30};
+    Tetromino();
     Tetromino(TDT4102::Point startingPoint, TetrominoType tetType);
     
     void rotateClockwise();
