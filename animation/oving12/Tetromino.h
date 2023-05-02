@@ -4,18 +4,20 @@
 #include <vector>
 
 enum class TetrominoType{J, L, T, S, Z, O, I, NONE};
-
+using namespace TDT4102;
+using namespace std;
 class Tetromino {
 public:
     static constexpr int blockSize{30};
     Tetromino();
     Tetromino(TDT4102::Point startingPoint, TetrominoType tetType);
 
-    int getMatrixSize();
-    TDT4102::Point getPosition();
+    int getMatrixSize() const;
+    TDT4102::Point getPosition() const;
+    std::vector<std::vector<TetrominoType>> getBlockMatrix() const;
     
-    bool blockExist(int row, int col);
-    TetrominoType getBlock(int row, int col);
+    bool blockExist(int row, int col) const;
+    TetrominoType getBlock(int row, int col) const;
     void rotateClockwise();
     void rotateCounterClockwise();
     void moveDown();
@@ -24,6 +26,5 @@ public:
 private: 
     int matrixSize;
     TDT4102::Point topLeftCorner;
-    TDT4102::Color color;
     std::vector<std::vector<TetrominoType>> blockMatrix;
 };

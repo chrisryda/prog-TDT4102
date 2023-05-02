@@ -3,9 +3,8 @@
 #include <iostream>
 
 int main() {
-	/********************************************************/
-		//Opprett vindu her
-    /********************************************************/
-        //kall run på det her
+	TetrisWindow twin;
+	twin.run();
+
 	return 0;
 }

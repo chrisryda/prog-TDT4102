@@ -1,5 +1,6 @@
 #include "Tetromino.h"
 #include <map>
+#include <iostream>
 #include <cassert>
 
 const std::map<TetrominoType, std::vector<std::vector<int>>> initialMatrixMap {
@@ -54,31 +55,7 @@ const std::map<TetrominoType, std::vector<std::vector<int>>> initialMatrixMap {
     }
 };
 
-const std::map<TetrominoType, TDT4102::Color> colorMap {
-    {
-        TetrominoType::T, TDT4102::Color::purple
-    },
-    {
-        TetrominoType::J, TDT4102::Color::blue
-    },
-    {
-        TetrominoType::I, TDT4102::Color::aqua
-    },
-    {
-        TetrominoType::Z, TDT4102::Color::red
-    },
-    {
-        TetrominoType::L, TDT4102::Color::orange
-    },
-    {
-        TetrominoType::S, TDT4102::Color::lime
-    },
-    {
-        TetrominoType::O, TDT4102::Color::yellow
-    }
-};
-
-Tetromino::Tetromino() : matrixSize{0}, topLeftCorner{TDT4102::Point{0,0}}, color{TDT4102::Color::grey} {};
+Tetromino::Tetromino() : matrixSize{0}, topLeftCorner{TDT4102::Point{0,0}} {};
 
 Tetromino::Tetromino(TDT4102::Point startingPoint, TetrominoType tetType) : topLeftCorner{startingPoint} {
     std::vector<std::vector<int>> tetrominoVec = initialMatrixMap.at(tetType);
@@ -92,24 +69,27 @@ Tetromino::Tetromino(TDT4102::Point startingPoint, TetrominoType tetType) : topL
             }
         }
     }
-    color = colorMap.at(tetType);
 }
 
-int Tetromino::getMatrixSize() {
+int Tetromino::getMatrixSize() const {
     return matrixSize;
 }
 
-TDT4102::Point Tetromino::getPosition() {
+TDT4102::Point Tetromino::getPosition() const {
     return topLeftCorner;
 }
 
-bool Tetromino::blockExist(int row, int col) {
+std::vector<std::vector<TetrominoType>> Tetromino::getBlockMatrix() const {
+    return blockMatrix;
+}
+
+bool Tetromino::blockExist(int row, int col) const {
     assert(row >= 0 && col >= 0);
     assert(row < matrixSize && col < matrixSize);
     return (blockMatrix[row][col] != TetrominoType::NONE);
 }
 
-TetrominoType Tetromino::getBlock(int row, int col) {
+TetrominoType Tetromino::getBlock(int row, int col) const {
     assert(row >= 0 && col >= 0);
     assert(row < matrixSize && col < matrixSize);
     return blockMatrix[row][col];
@@ -149,13 +129,13 @@ void Tetromino::rotateClockwise() {
 }
 
 void Tetromino::moveLeft() {
-    topLeftCorner.x -= blockSize;
+    topLeftCorner.x--;
 }
 
 void Tetromino::moveRight() {
-    topLeftCorner.x += blockSize;
+    topLeftCorner.x++;
 }
 
 void Tetromino::moveDown() {
-    topLeftCorner.y += blockSize;
+    topLeftCorner.y++;
 }
