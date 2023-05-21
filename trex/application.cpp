@@ -15,13 +15,18 @@
 string Application::load_program(string file_name)
 {
   // BEGIN: A1
-  //
-  // Write your answer to assignment A1 here, between the // BEGIN: A1
-  // and // END: A1 comments. You should remove any code that is
-  // already there and replace it with your own.
+  ifstream in{file_name};
+  if (!in) {
+    throw invalid_argument("Could not open file");
+  }
+  string contents;
+  string line;
+  while(getline(in, line)) {
+    contents += line;
+    contents += "\n";
+  }
 
-  (void)file_name;
-  return "";
+  return contents;
 
   // END: A1
 }
@@ -37,13 +42,11 @@ string Application::load_program(string file_name)
 void Application::save_program(string file_name, string contents)
 {
   // BEGIN: A2
-  //
-  // Write your answer to assignment A2 here, between the // BEGIN: A2
-  // and // END: A2 comments. You should remove any code that is
-  // already there and replace it with your own.
-
-  (void)file_name;
-  (void)contents;
+    ofstream out{file_name};
+    if (!out) {
+        throw invalid_argument("Cannot open output file");
+    }
+    out << contents;
 
   // END: A2
 }
@@ -56,13 +59,13 @@ void Application::save_program(string file_name, string contents)
 bool Application::is_int(const string& s)
 {
   // BEGIN: A3
-  //
-  // Write your answer to assignment A3 here, between the // BEGIN: A3
-  // and // END: A3 comments. You should remove any code that is
-  // already there and replace it with your own.
 
-  (void)s;
-  return false;
+  for (int i = 0; i < s.length(); i++) {
+    if (!isdigit(s[i])) {
+        return false;
+    }
+  }
+  return true;
 
   // END: A3
 
@@ -82,7 +85,7 @@ void Application::cb_btn_run_program() {
 }
 
 void Application::cb_btn_load_program() {
-    in_program.setText(load_program("programs/prog1.txt"));
+    in_program.setText(load_program("programs/progNew.txt"));
 }
 
 void Application::cb_btn_save_program() {

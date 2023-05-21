@@ -1,0 +1,3 @@
+make_grid     6     6
+make_robot    alex   2      2 green
+make_robot    jonas 4      4 blue
